@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cegeka.Guild.Pokeverse.DAL.Abstracts;
-using Cegeka.Guild.Pokeverse.DAL.Entities;
+using Cegeka.Guild.Pokevers.Domain.Abstracts;
+using Cegeka.Guild.Pokevers.Domain.Entities;
 
-namespace Cegeka.Guild.Pokeverse.DAL.Implementations
+namespace Cegeka.Guild.Pokeverse.Persistence.InMemory.Implementations
 {
-    internal class GenericRepository<T> : IRepository<T>
+    public class GenericRepository<T> : IRepository<T>
         where T : Entity
     {
         private readonly ICollection<T> entities = new List<T>();

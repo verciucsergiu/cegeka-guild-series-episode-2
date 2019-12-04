@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cegeka.Guild.Pokeverse.DAL.Entities;
+using Cegeka.Guild.Pokevers.Domain.Entities;
 
-namespace Cegeka.Guild.Pokeverse.DAL.Abstracts
+namespace Cegeka.Guild.Pokevers.Domain.Abstracts
 {
     public interface IRepository<T>
         where T : Entity

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cegeka.Guild.Pokeverse.DAL.Entities
+namespace Cegeka.Guild.Pokevers.Domain.Entities
 {
     public class Entity
     {
