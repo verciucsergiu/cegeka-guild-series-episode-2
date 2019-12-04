@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cegeka.Guild.Pokeverse.Business.Arena.Models;
 using Cegeka.Guild.Pokeverse.Business.Models;
 using MediatR;
 

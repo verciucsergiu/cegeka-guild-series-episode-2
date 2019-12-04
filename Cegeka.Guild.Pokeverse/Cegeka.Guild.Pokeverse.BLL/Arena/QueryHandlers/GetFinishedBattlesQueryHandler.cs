@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cegeka.Guild.Pokeverse.Business.Arena.Models;
 using Cegeka.Guild.Pokeverse.Business.Arena.Queries;
 using Cegeka.Guild.Pokeverse.Business.Models;
 using Cegeka.Guild.Pokeverse.Domain.Abstracts;
