@@ -1,5 +1,6 @@
 using Cegeka.Guild.Pokeverse.Business;
 using Cegeka.Guild.Pokeverse.Persistence.EntityFramework;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace Cegeka.Guild.Pokeverse.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddMediatR(BusinessAssembly.Value)
                 .AddPersistence(Configuration.GetConnectionString("PokeverseDatabase"))
                 .AddServices()
                 .AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}))

@@ -9,8 +9,7 @@ namespace Cegeka.Guild.Pokeverse.Business
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             return services.AddScoped<ITrainerService, TrainerService>()
-                .AddScoped<IBattleService, BattleService>()
-                .AddScoped<IArenaService, ArenaService>();
+                .AddScoped<IBattleService, BattleService>();
         }
     }
 }
