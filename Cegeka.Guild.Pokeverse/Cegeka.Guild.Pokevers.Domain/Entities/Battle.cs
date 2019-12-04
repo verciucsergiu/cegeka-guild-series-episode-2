@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cegeka.Guild.Pokevers.Domain.Entities
+namespace Cegeka.Guild.Pokeverse.Domain.Entities
 {
     public class Battle : Entity
     {

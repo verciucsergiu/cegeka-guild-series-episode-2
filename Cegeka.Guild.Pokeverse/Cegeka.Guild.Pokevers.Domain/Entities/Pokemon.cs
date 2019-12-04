@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cegeka.Guild.Pokevers.Domain.Entities
+namespace Cegeka.Guild.Pokeverse.Domain.Entities
 {
     public class Pokemon : Entity
     {

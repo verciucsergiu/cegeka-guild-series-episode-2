@@ -1,5 +1,5 @@
-﻿using Cegeka.Guild.Pokevers.Domain.Abstracts;
-using Cegeka.Guild.Pokevers.Domain.Entities;
+﻿using Cegeka.Guild.Pokeverse.Domain.Abstracts;
+using Cegeka.Guild.Pokeverse.Domain.Entities;
 using Cegeka.Guild.Pokeverse.Persistence.InMemory.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 
