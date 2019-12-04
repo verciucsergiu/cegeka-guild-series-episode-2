@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cegeka.Guild.Pokevers.Domain.Abstracts;
-using Cegeka.Guild.Pokevers.Domain.Entities;
 using Cegeka.Guild.Pokeverse.Business.Abstracts;
 using Cegeka.Guild.Pokeverse.Business.Models;
+using Cegeka.Guild.Pokeverse.Domain.Abstracts;
+using Cegeka.Guild.Pokeverse.Domain.Entities;
 
 namespace Cegeka.Guild.Pokeverse.Business.Implementations
 {
