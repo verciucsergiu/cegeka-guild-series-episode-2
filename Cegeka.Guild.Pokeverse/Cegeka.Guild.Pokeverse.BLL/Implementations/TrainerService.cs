@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cegeka.Guild.Pokeverse.Business.Abstracts;
+using Cegeka.Guild.Pokeverse.Business.Arena.Models;
 using Cegeka.Guild.Pokeverse.Business.Models;
 using Cegeka.Guild.Pokeverse.Domain.Abstracts;
 using Cegeka.Guild.Pokeverse.Domain.Entities;

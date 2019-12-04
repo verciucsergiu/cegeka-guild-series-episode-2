@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cegeka.Guild.Pokeverse.Business.Arena.Models;
 
 namespace Cegeka.Guild.Pokeverse.Business.Models
 {
