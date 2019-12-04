@@ -10,9 +10,9 @@ namespace Cegeka.Guild.Pokeverse.Business.Implementations
     internal class BattleService : IBattleService
     {
         private readonly IRepository<Pokemon> pokemonsRepository;
-        private readonly IRepository<Battle> battlesRepository;
+        private readonly IRepository<Domain.Entities.Battle> battlesRepository;
 
-        public BattleService(IRepository<Pokemon> pokemonsRepository, IRepository<Battle> battlesRepository)
+        public BattleService(IRepository<Pokemon> pokemonsRepository, IRepository<Domain.Entities.Battle> battlesRepository)
         {
             this.pokemonsRepository = pokemonsRepository;
             this.battlesRepository = battlesRepository;
@@ -41,7 +41,7 @@ namespace Cegeka.Guild.Pokeverse.Business.Implementations
                 throw new InvalidOperationException("Two pokemons of the same trainer cannot fight!");
             }
 
-            var battle = new Battle
+            var battle = new Domain.Entities.Battle
             {
                 AttackerId = attackerId,
                 Attacker = new PokemonInFight(attacker),
@@ -50,52 +50,6 @@ namespace Cegeka.Guild.Pokeverse.Business.Implementations
                 ActivePlayer = attackerId
             };
             this.battlesRepository.Add(battle);
-        }
-
-        public void UseAbility(Guid battleId, Guid participantId, Guid abilityId)
-        {
-            var battle = this.battlesRepository.GetById(battleId);
-            if (battle == null)
-            {
-                throw new InvalidOperationException("Battle not found!");
-            }
-
-            if (battle.Winner != null)
-            {
-                throw new InvalidOperationException("Battle has already ended!");
-            }
-
-            if (battle.ActivePlayer != participantId)
-            {
-                throw new InvalidOperationException("You are not the active player, wait for your turn!");
-            }
-
-            var pokemonDealingDamage = this.pokemonsRepository.GetById(participantId);
-            var ability = pokemonDealingDamage.Abilities.FirstOrDefault(a => a.Id == abilityId);
-            if (ability == null)
-            {
-                throw new InvalidOperationException("Unknown ability!");
-            }
-
-            if (ability.RequiredLevel > pokemonDealingDamage.CurrentLevel)
-            {
-                throw new InvalidOperationException("You cannot use this ability yet!");
-            }
-
-            var pokemonTakingDamage = battle.Attacker;
-            if (participantId == battle.AttackerId)
-            {
-                pokemonTakingDamage = battle.Defender;
-            }
-
-            pokemonTakingDamage.Health -= ability.Damage;
-            battle.ActivePlayer = pokemonTakingDamage.Pokemon.Id;
-            if (pokemonTakingDamage.Health <= 0)
-            {
-                battle.Winner = pokemonDealingDamage;
-                battle.Loser = pokemonTakingDamage.Pokemon;
-                battle.FinishedAt = DateTime.Now;
-            }
         }
     }
 }
