@@ -9,7 +9,7 @@ namespace Cegeka.Guild.Pokeverse.Business.Battle.EventHandlers
 {
     internal sealed class ExperienceGainedEventHandler : INotificationHandler<ExperienceGainedEvent>
     {
-        private static int LevelThreshold = 1500;
+        private static int LevelUpThreshold = 100;
         private readonly IRepository<Pokemon> pokemonRepository;
 
         public ExperienceGainedEventHandler(IRepository<Pokemon> pokemonRepository)
@@ -19,6 +19,15 @@ namespace Cegeka.Guild.Pokeverse.Business.Battle.EventHandlers
 
         public Task Handle(ExperienceGainedEvent notification, CancellationToken cancellationToken)
         {
+            var pokemon = pokemonRepository.GetById(notification.PokemonId);
+
+            if (pokemon.Experience >= pokemon.CurrentLevel * LevelUpThreshold)
+            {
+                pokemon.CurrentLevel++;
+                pokemonRepository.Update(pokemon);
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
