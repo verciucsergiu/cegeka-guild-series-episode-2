@@ -12,5 +12,7 @@ namespace Cegeka.Guild.Pokeverse.Domain.Abstracts
         T GetById(Guid id);
 
         void Add(T entity);
+
+        void Update(T entity);
     }
 }

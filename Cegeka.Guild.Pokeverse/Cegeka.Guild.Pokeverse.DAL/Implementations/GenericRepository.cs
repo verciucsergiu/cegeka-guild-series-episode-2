@@ -16,5 +16,8 @@ namespace Cegeka.Guild.Pokeverse.Persistence.InMemory.Implementations
         public T GetById(Guid id) => entities.FirstOrDefault(e => e.Id == id);
 
         public void Add(T entity) => entities.Add(entity);
+        public void Update(T entity)
+        {
+        }
     }
 }
