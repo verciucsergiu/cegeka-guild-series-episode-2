@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cegeka.Guild.Pokeverse.Business.Battle.Events;
 using Cegeka.Guild.Pokeverse.Domain.Abstracts;
@@ -9,8 +10,9 @@ namespace Cegeka.Guild.Pokeverse.Business.Battle.EventHandlers
 {
     internal sealed class BattleEndedEventHandler : INotificationHandler<BattleEndedEvent>
     {
-        private static int ExperienceGainedWinning = 500;
-        private static int ExperienceGainedLosing = 50;
+        private static int MaxGainedExperience = 50;
+        private static int MinGainedExperience = 40;
+        private static double WinningFactor = 0.5;
         private readonly IRepository<Domain.Entities.Battle> battleRepository;
         private readonly IRepository<Pokemon> pokemonRepository;
 
@@ -23,10 +25,14 @@ namespace Cegeka.Guild.Pokeverse.Business.Battle.EventHandlers
         public Task Handle(BattleEndedEvent notification, CancellationToken cancellationToken)
         {
             var battle = battleRepository.GetById(notification.BattleId);
+            var random = new Random(DateTime.Now.Millisecond);
+            var experienceGained = random.Next(MinGainedExperience, MaxGainedExperience);
+            
             var winner = battle.Winner;
-            winner.Experience += ExperienceGainedWinning;
+            winner.Experience += (int)Math.Round(experienceGained * WinningFactor);
+
             var loser = battle.Loser;
-            loser.Experience += ExperienceGainedLosing;
+            loser.Experience += experienceGained;
 
             pokemonRepository.Update(winner);
             pokemonRepository.Update(loser);
