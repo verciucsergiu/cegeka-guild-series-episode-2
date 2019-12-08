@@ -13,14 +13,16 @@ namespace Cegeka.Guild.Pokeverse.Business.Battle.EventHandlers
         private static int ExperienceGainedLosing = 50;
         private readonly IRepository<Domain.Entities.Battle> battleRepository;
         private readonly IRepository<Pokemon> pokemonRepository;
+        private readonly IMediator mediator;
 
-        public BattleEndedEventHandler(IRepository<Domain.Entities.Battle> battleRepository, IRepository<Pokemon> pokemonRepository)
+        public BattleEndedEventHandler(IRepository<Domain.Entities.Battle> battleRepository, IRepository<Pokemon> pokemonRepository, IMediator mediator)
         {
             this.battleRepository = battleRepository;
             this.pokemonRepository = pokemonRepository;
+            this.mediator = mediator;
         }
 
-        public Task Handle(BattleEndedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(BattleEndedEvent notification, CancellationToken cancellationToken)
         {
             var battle = battleRepository.GetById(notification.BattleId);
             var winner = battle.Winner;
@@ -29,9 +31,10 @@ namespace Cegeka.Guild.Pokeverse.Business.Battle.EventHandlers
             loser.Experience += ExperienceGainedLosing;
 
             pokemonRepository.Update(winner);
-            pokemonRepository.Update(loser);
+            await mediator.Publish(new ExperienceGainedEvent(winner.Id), cancellationToken);
 
-            return Task.CompletedTask;
+            pokemonRepository.Update(loser);
+            await mediator.Publish(new ExperienceGainedEvent(loser.Id), cancellationToken);
         }
     }
 }
